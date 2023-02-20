@@ -47,6 +47,18 @@ describe("Endpoints", () => {
     });
   });
 
+  describe("GET /dogs/:id", () => {
+    it("should return a single dog by its id", async () => {
+      const id = 6;
+      const response = await request(app).get(`/dogs/${id}`);
+
+      const dog = await Dog.findAll({ where: { id } });
+      expect(response.status).toBe(200);
+      expect(response.body.breed).toEqual(testDogData.breed);
+      expect(response.body.description).toEqual(testDogData.description);
+    });
+  });
+
   describe("DELETE /dogs/:id", () => {
     it("should delete a dog when an id is passed in the parameter, and id is found", async () => {
       const id = 1;

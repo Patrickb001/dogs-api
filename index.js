@@ -56,4 +56,16 @@ app.get("/dogs", async (req, res, next) => {
   }
 });
 
+app.get("/dogs/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const dog = await Dog.findByPk(id);
+    console.log(dog);
+
+    res.send(dog);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = { app, sequelize };
